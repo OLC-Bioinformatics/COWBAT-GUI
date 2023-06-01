@@ -1,8 +1,8 @@
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
-from main import main
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QFileDialog, QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QLineEdit, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QFileDialog, QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QLineEdit, QMessageBox, QCheckBox, QComboBox
 import sys, openpyxl, csv, subprocess, os, pathlib, psutil, glob
 from pathlib import Path
+from AdvancedOptions import Ui_AdvancedWindow
 
 class UI(QMainWindow):
 
@@ -11,7 +11,7 @@ class UI(QMainWindow):
         self.test_out=str()
 
         # Load the ui file
-        uic.loadUi("Dialog.ui", self)
+        uic.loadUi("MainMenu.ui", self)
 
         # Creates the layout of the box
         layout = QVBoxLayout()   
@@ -24,14 +24,12 @@ class UI(QMainWindow):
         self.table_widget.show()
 
         # Define our widgets
-        self.tableDisplayButton = self.findChild(QPushButton, "tableDisplayButton")
-        self.analyzeResultsButton = self.findChild(QPushButton, "analyzeResultsButton")
-        self.folderField = self.findChild(QLineEdit, "folderField")
-        self.errorLabel = self.findChild(QLabel, "errorLabel")
+        self.widgetDefiner()
 
         # Clicks the buttons
         self.analyzeResultsButton.clicked.connect(self.analyzeClicker)
         self.tableDisplayButton.clicked.connect(self.tableClicker)
+        self.advancedOptionsButton.clicked.connect(self.advancedOptionsClicker)
 
         # Shows the app
         self.show()
@@ -52,10 +50,17 @@ class UI(QMainWindow):
             msg.setInformativeText("You will have to select the file: confindr_report.csv when prompted in a few minutes in order to view results.")
             x = msg.exec_()
 
+            # Checks what options are selected and applies those arguements to our command line
+            rmlst = self.rmlstOptions()
+            fasta = self.fastaOptions()
+            baseCutoff = self.baseCutoffOptions()
+            dataChoice = self.dataChoiceOptions()
+
             # Uses the folder name as an argument to run ConFindr and get the results. Mem represents total allocated memory that is being reserved for confindr
             self.test_out = os.path.join(folderName, "test_out")
             mem = int(0.85 * float(psutil.virtual_memory().total) / 1024)
-            subprocess.run(f'confindr -i {folderName} -o {self.test_out} --rmlst -Xmx {mem}K', shell=True)
+            subprocess.run(f'confindr -i {folderName} -o {self.test_out}{rmlst} -b {baseCutoff} -dt {dataChoice}{fasta} -Xmx {mem}K', shell=True)
+            print(f'confindr -i {folderName} -o {self.test_out}{rmlst} -b {baseCutoff} -dt {dataChoice}{fasta} -Xmx {mem}K')
 
             # Then, opens the window to allow you to select the confindr_report.csv file to show the graph
             self.tableClicker()
@@ -65,23 +70,31 @@ class UI(QMainWindow):
             self.errorLabel.setText("Please select a folder to continue")
 
         else:
-            self.errorLabel.setText("The folder does not contain any fastq.gz or fasta files")
-            
+            self.errorLabel.setText("The folder does not contain any fastq.gz or fasta files")        
 
     def tableClicker(self):
         # Open File Dialog and choose which file type you want
         fileName = QFileDialog.getOpenFileName(self, "Open Da Magic File", "", "CSV Files(*.csv);;XLSX Files(*.xlsx)")
 
         # Output file name to screen
-        if fileName:
+        if str(fileName) != "('', '')":
             self.test_out = os.path.dirname(fileName[0])
-            #print(fileName)
 
             # Custom methods use to extract data into the GUI
             self.convert_csv_to_xlsx()
             self.load_data(fileName[0])
 
-#---------------------------------------------------------------------------------
+        else:
+            self.errorLabel.setText("Please select a .csv or .xlsx file to continue")
+
+    # Opens a new window with advanced options
+    def advancedOptionsClicker(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_AdvancedWindow()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+#--------------------File Loader and Graph Displayer------------------------------------------
 
     # Converts csv files to xlsx fiels
     def convert_csv_to_xlsx(self):
@@ -134,7 +147,71 @@ class UI(QMainWindow):
                 col_index += 1                   
                                             
             row_index += 1
+
+#--------------------------Widget Definers-------------------------------------------------
+
+    def widgetDefiner(self):
+        # Defines all the widgets used [there is a lot of them]
+        self.tableDisplayButton = self.findChild(QPushButton, "tableDisplayButton")
+        self.analyzeResultsButton = self.findChild(QPushButton, "analyzeResultsButton")
+        self.advancedOptionsButton = self.findChild(QPushButton, "advancedOptionsButton")
+        self.folderField = self.findChild(QLineEdit, "folderField")
+        self.errorLabel = self.findChild(QLabel, "errorLabel")
+
+        # Main arguments
+        self.RMLSTcheckBox = self.findChild(QCheckBox, "RMLSTcheckBox")
+        self.FASTAcheckBox = self.findChild(QCheckBox, "FASTAcheckBox")
+        self.baseCutoffInput = self.findChild(QLineEdit, "baseCutoffInput")
+        self.dataDropdownMenu = self.findChild(QComboBox, "dataDropdownMenu")
+
+        # Advanced arguements
+        self.keepCheckBox = self.findChild(QCheckBox, "keepCheckBox")
+        self.versionCheckBox = self.findChild(QCheckBox, "versionCheckBox")
+        self.crossDetailsCheckBox = self.findChild(QCheckBox, "crossDetailsCheckBox")
+        self.verbosityDropdownMenu = self.findChild(QComboBox, "verbosityDropdownMenu")        
+        self.databaseInput = self.findChild(QLineEdit, "databaseInput")
+        self.TMPInput = self.findChild(QLineEdit, "TMPInput")
+        self.baseCutoffInput = self.findChild(QLineEdit, "baseCutoffInput")
+        self.threadsInput = self.findChild(QLineEdit, "threadsInput")
+        self.qualityInput = self.findChild(QLineEdit, "qualityInput")
+        self.cgmlstInput = self.findChild(QLineEdit, "cgmlstInput")
+        self.forwardInput = self.findChild(QLineEdit, "forwardInput")
+        self.reverseInput = self.findChild(QLineEdit, "reverseInput")
+        self.MMHInput = self.findChild(QLineEdit, "MMHInput")
+
+#---------------------------Argument Functions----------------------------------------------
+
+    # Checks if the rmlst option is selected
+    def rmlstOptions(self):
+        if self.RMLSTcheckBox.isChecked() == True:
+            option = ' --rmlst'
+        else:
+            option = ''
+        return option
+
+    # Checks if the fasta option is selected
+    def fastaOptions(self):
+        if self.RMLSTcheckBox.isChecked() == True:
+            option = ' --fasta'
+        else:
+            option = ''
+        return option    
         
+    # Checks first if the input is a number or not. If not, it defaults to 2. If is, then it returns that number
+    def baseCutoffOptions(self):
+        if (self.baseCutoffInput.text()).isnumeric():
+            option = int(self.baseCutoffInput.text())
+        else:
+            option = 2
+        return option
+    
+    # Checks if you chose Illumina or Nanopore as your data type
+    def dataChoiceOptions(self):
+        if self.dataDropdownMenu.currentText() == 'ILLUMINA':
+            option = 'ILLUMINA'
+        else:
+            option = 'NANOPORE'
+        return option    
 
 app = QApplication(sys.argv)
 UIWindow = UI()
