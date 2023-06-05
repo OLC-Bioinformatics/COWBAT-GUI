@@ -92,14 +92,17 @@ class UI(QMainWindow):
         if str(fileName) != "('', '')":
             self.test_out = os.path.dirname(fileName[0])
 
-            # Custom methods use to extract data into the GUI
-            self.convert_csv_to_xlsx()
+            # Custom methods use to extract data into the GUI. Checks if the file is .csv or .xlsx and changes it accordingly
+            if ".csv" in fileName:
+                self.convert_csv_to_xlsx()
+
             self.load_data(fileName[0])
+            print(fileName[0])
 
         else:
             self.errorLabel.setText("Please select a .csv or .xlsx file to continue")
 
-    # Opens a new window with advanced options [NOW DISCOUTINUED AND NOT USED]
+    # Opens a new window with advanced options [NOW DISCONTINUED AND NOT USED]
     #def advancedOptionsClicker(self):
         #self.window = QtWidgets.QMainWindow()
         #self.ui = Ui_AdvancedWindow()
@@ -124,7 +127,7 @@ class UI(QMainWindow):
     # Loads the data from the xlsx file to the table widget in PyQt5
     def load_data(self, fileName):
         # Gathers the path and locates the excel file. Takes the file path, removes the all files header, subtracts the csv portion and adds on the xlsx
-        #print(str(fileName))
+        fileName = str(fileName).replace(".xlsx", ".csv", 1)
         path = str(fileName[:-3] + "xlsx")
         workbook = openpyxl.load_workbook(path)
         sheet = workbook.active

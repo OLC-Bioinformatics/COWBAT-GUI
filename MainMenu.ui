@@ -666,6 +666,9 @@
       <bold>false</bold>
      </font>
     </property>
+    <property name="statusTip">
+     <string>Only accepts files named confindr_report</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">border-radius:20px;
 background-color:rgb(244, 212, 255)</string>
@@ -1132,9 +1135,9 @@ background-color:rgb(244, 212, 255)</string>
    <widget class="QComboBox" name="dataDropdownMenu">
     <property name="geometry">
      <rect>
-      <x>518</x>
+      <x>530</x>
       <y>340</y>
-      <width>91</width>
+      <width>101</width>
       <height>22</height>
      </rect>
     </property>
@@ -1269,7 +1272,7 @@ background-color:rgb(244, 212, 255)</string>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>620</x>
+      <x>642</x>
       <y>340</y>
       <width>81</width>
       <height>21</height>
@@ -1823,7 +1826,7 @@ background-color:rgb(244, 212, 255)</string>
      </rect>
     </property>
     <property name="statusTip">
-     <string>Path to a cgMLST database to use for contaminationdetection instead of using the default rMLST database. Sequences in this file should have headers in format&gt;genename_allelenumber. To speed up ConFindr runs, clustering the cgMLST database with CD-HIT before running ConFindr is recommended. This is highly experimental, results should be interpreted with greatcare.</string>
+     <string>Path to a cgMLST database to use for contamination detection instead of using the default rMLST database. Sequences in this file should have headers in format&gt;genename_allelenumber. To speed up ConFindr runs, clustering the cgMLST database with CD-HIT before running ConFindr is recommended. This is highly experimental, results should be interpreted with greatcare.</string>
     </property>
     <property name="text">
      <string>CGMLST</string>
