@@ -1,8 +1,6 @@
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QFileDialog, QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QLineEdit, QMessageBox, QCheckBox, QComboBox
 import sys, openpyxl, csv, subprocess, os, pathlib, psutil, glob
-from pathlib import Path
-from AdvancedOptions import Ui_AdvancedWindow
 
 class UI(QMainWindow):
 
@@ -29,7 +27,7 @@ class UI(QMainWindow):
         # Clicks the buttons
         self.analyzeResultsButton.clicked.connect(self.analyzeClicker)
         self.tableDisplayButton.clicked.connect(self.tableClicker)
-        self.advancedOptionsButton.clicked.connect(self.advancedOptionsClicker)
+        #self.advancedOptionsButton.clicked.connect(self.advancedOptionsClicker)
 
         # Shows the app
         self.show()
@@ -55,12 +53,26 @@ class UI(QMainWindow):
             fasta = self.fastaOptions()
             baseCutoff = self.baseCutoffOptions()
             dataChoice = self.dataChoiceOptions()
+            keepFiles = self.keepOptions()
+            versionDisplay = self.versionOptions()
+            crossDetails = self.crossDetailsOptions()
+            verbosity = self.verbosityOptions()
+            databases = self.databaseOptions()
+            tmp = self.TMPOptions()
+            baseFraction = self.baseFractionOptions()
+            threads = self.threadsOptions()
+            qualityCutoff = self.qualityOptions()
+            cgmlst = self.CGMLISTOptions()
+            forwardId = self.forwardOptions()
+            reverseId = self.reverseOptions()
+            MMH = self.MMHOptions()
+
 
             # Uses the folder name as an argument to run ConFindr and get the results. Mem represents total allocated memory that is being reserved for confindr
             self.test_out = os.path.join(folderName, "test_out")
             mem = int(0.85 * float(psutil.virtual_memory().total) / 1024)
-            subprocess.run(f'confindr -i {folderName} -o {self.test_out}{rmlst} -b {baseCutoff} -dt {dataChoice}{fasta} -Xmx {mem}K', shell=True)
-            print(f'confindr -i {folderName} -o {self.test_out}{rmlst} -b {baseCutoff} -dt {dataChoice}{fasta} -Xmx {mem}K')
+            subprocess.run(f'confindr -i {folderName} -o {self.test_out}{databases}{rmlst}{threads}{tmp}{keepFiles}{qualityCutoff}{baseCutoff}{baseFraction}{forwardId}{reverseId}{versionDisplay}{dataChoice}{cgmlst}{fasta}{verbosity}{crossDetails}{MMH} -Xmx {mem}K', shell=True)
+            print(f'confindr -i {folderName} -o {self.test_out}{databases}{rmlst}{threads}{tmp}{keepFiles}{qualityCutoff}{baseCutoff}{baseFraction}{forwardId}{reverseId}{versionDisplay}{dataChoice}{cgmlst}{fasta}{verbosity}{crossDetails}{MMH} -Xmx {mem}K')
 
             # Then, opens the window to allow you to select the confindr_report.csv file to show the graph
             self.tableClicker()
@@ -87,12 +99,12 @@ class UI(QMainWindow):
         else:
             self.errorLabel.setText("Please select a .csv or .xlsx file to continue")
 
-    # Opens a new window with advanced options
-    def advancedOptionsClicker(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_AdvancedWindow()
-        self.ui.setupUi(self.window)
-        self.window.show()
+    # Opens a new window with advanced options [NOW DISCOUTINUED AND NOT USED]
+    #def advancedOptionsClicker(self):
+        #self.window = QtWidgets.QMainWindow()
+        #self.ui = Ui_AdvancedWindow()
+        #self.ui.setupUi(self.window)
+        #self.window.show()
 
 #--------------------File Loader and Graph Displayer------------------------------------------
 
@@ -148,13 +160,13 @@ class UI(QMainWindow):
                                             
             row_index += 1
 
-#--------------------------Widget Definers-------------------------------------------------
+        #--------------------------Widget Definers-------------------------------------------------
 
     def widgetDefiner(self):
         # Defines all the widgets used [there is a lot of them]
         self.tableDisplayButton = self.findChild(QPushButton, "tableDisplayButton")
         self.analyzeResultsButton = self.findChild(QPushButton, "analyzeResultsButton")
-        self.advancedOptionsButton = self.findChild(QPushButton, "advancedOptionsButton")
+        #self.advancedOptionsButton = self.findChild(QPushButton, "advancedOptionsButton")
         self.folderField = self.findChild(QLineEdit, "folderField")
         self.errorLabel = self.findChild(QLabel, "errorLabel")
 
@@ -171,7 +183,7 @@ class UI(QMainWindow):
         self.verbosityDropdownMenu = self.findChild(QComboBox, "verbosityDropdownMenu")        
         self.databaseInput = self.findChild(QLineEdit, "databaseInput")
         self.TMPInput = self.findChild(QLineEdit, "TMPInput")
-        self.baseCutoffInput = self.findChild(QLineEdit, "baseCutoffInput")
+        self.baseFractionInput = self.findChild(QLineEdit, "baseFractionInput")
         self.threadsInput = self.findChild(QLineEdit, "threadsInput")
         self.qualityInput = self.findChild(QLineEdit, "qualityInput")
         self.cgmlstInput = self.findChild(QLineEdit, "cgmlstInput")
@@ -191,27 +203,135 @@ class UI(QMainWindow):
 
     # Checks if the fasta option is selected
     def fastaOptions(self):
-        if self.RMLSTcheckBox.isChecked() == True:
+        if self.FASTAcheckBox.isChecked() == True:
             option = ' --fasta'
         else:
             option = ''
         return option    
+
+    # Checks if the keep-files option is selected
+    def keepOptions(self):
+        if self.keepCheckBox.isChecked() == True:
+            option = ' -k'
+        else:
+            option = ''
+        return option  
+
+    # Checks if the version option is selected
+    def versionOptions(self):
+        if self.versionCheckBox.isChecked() == True:
+            option = ' -v'
+        else:
+            option = ''
+        return option  
+
+    # Checks if the cross details option is selected
+    def crossDetailsOptions(self):
+        if self.crossDetailsCheckBox.isChecked() == True:
+            option = ' -cross_details'
+        else:
+            option = ''
+        return option  
         
     # Checks first if the input is a number or not. If not, it defaults to 2. If is, then it returns that number
     def baseCutoffOptions(self):
         if (self.baseCutoffInput.text()).isnumeric():
-            option = int(self.baseCutoffInput.text())
+            option = ' -b ' + str(int(self.baseCutoffInput.text()))
         else:
-            option = 2
+            option = ' -b ' + str(2)
+        return option
+
+    # Checks if there is anything written for databaseOptions and if not, return nothing
+    def databaseOptions(self):
+        if len(self.databaseInput.text()) == 0:
+            option = ''
+        else:
+            option = ' -d ' + self.databaseInput.text()
+        return option
+
+    # Checks if anything is written and then returns the TMP input back
+    def TMPOptions(self):
+        if len(self.TMPInput.text()) == 0:
+            option = ''
+        else:
+            option = ' -tmp ' + self.TMPInput.text()
+        return option
+
+    # Checks first if the input is a number or not. If not, it defaults to 0.05
+    def baseFractionOptions(self):
+        try:
+            float(self.baseFractionInput.text())
+            option = ' -bf ' + str(float(self.baseFractionInput.text()))
+            return option
+        except ValueError:
+            option = ' -bf ' + str(0.05)
+            return option
+
+    # Checks first if the input is a number or not. If not, it returns nothing
+    def threadsOptions(self):
+        if (self.threadsInput.text()).isnumeric():
+            option = ' -t ' + str(int(self.threadsInput.text()))
+        else:
+            option = ''
+        return option
+
+    # Checks first if the input is a number or not. If not, it defaults to 20. 
+    def qualityOptions(self):
+        if (self.qualityInput.text()).isnumeric():
+            option = ' -q ' + str(int(self.qualityInput.text()))
+        else:
+            option = ' -q ' + str(20)
+        return option
+    
+    # Checks first if there is any input. If not it adds whatever is typed
+    def CGMLISTOptions(self):
+        if len(self.cgmlstInput.text()) == 0:
+            option = ''
+        else:
+            option = ' -cgmlst ' + self.cgmlstInput.text()
+        return option
+    
+    # Checks first if there is any input. If not it adds whatever is typed
+    def forwardOptions(self):
+        if len(self.forwardInput.text()) == 0:
+            option = ''
+        else:
+            option = ' -fid ' + self.forwardInput.text()
+        return option
+    
+    # Checks first if there is any input. If not it adds whatever is typed
+    def reverseOptions(self):
+        if len(self.reverseInput.text()) == 0:
+            option = ''
+        else:
+            option = ' -rid ' + self.reverseInput.text()
+        return option
+
+    # Checks first if the input is a number or not. If not, it defaults to 150. 
+    def MMHOptions(self):
+        if (self.MMHInput.text()).isnumeric():
+            option = ' -m ' + str(int(self.MMHInput.text()))
+        else:
+            option = ' -m ' + str(150)
         return option
     
     # Checks if you chose Illumina or Nanopore as your data type
     def dataChoiceOptions(self):
         if self.dataDropdownMenu.currentText() == 'ILLUMINA':
-            option = 'ILLUMINA'
+            option = ' -dt Illumina'
         else:
-            option = 'NANOPORE'
+            option = ' -dt Nanopore'
         return option    
+
+    # Checks if you chose Debug, Info or Warning as the amount of output on your screen
+    def verbosityOptions(self):
+        if self.verbosityDropdownMenu.currentText() == 'DEBUG':
+            option = ' -verbosity debug'
+        elif self.verbosityDropdownMenu.currentText() == 'INFO':
+            option = ' -verbosity info'
+        else:
+            option = ' -verbosity warning'
+        return option  
 
 app = QApplication(sys.argv)
 UIWindow = UI()
