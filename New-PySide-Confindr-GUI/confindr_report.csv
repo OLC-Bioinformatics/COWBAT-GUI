@@ -1,0 +1,13 @@
+Sample,Genus,NumContamSNVs,ContamStatus,PercentContam,PercentContamStandardDeviation,BasesExamined,DatabaseDownloadDate
+2023-SEQ-0061_S13_L001,Escherichia,3,True,7.78,2.08,20931,ND
+2023-SEQ-0062_S14_L001,Escherichia,0,False,0,0,20862,ND
+2023-SEQ-0063_S15_L001,Escherichia,3,True,5.59,0.48,20931,ND
+2023-SEQ-0064_S16_L001,Escherichia,0,False,0,0,20931,ND
+2023-SEQ-0065_S17_L001,Escherichia,0,False,0,0,20931,ND
+2023-SEQ-0066_S18_L001,Klebsiella,1089,True,28.74,12.75,21195,ND
+2023-SEQ-0067_S19_L001,Klebsiella:Escherichia,0,True,ND,ND,0,ND
+2023-SEQ-0068_S20_L001,ND,426,True,8.84,3.49,21267,ND
+2023-SEQ-0069_S21_L001,ND,57,True,7.29,1.97,21243,ND
+2023-SEQ-0070_S22_L001,Enterobacter,1162,True,27.36,12.84,21192,ND
+2023-SEQ-0071_S23_L001,Enterobacter:Enterococcus,0,True,ND,ND,0,ND
+2023-SEQ-0072_S24_L001,Salmonella,2,False,0,0,20862,ND
