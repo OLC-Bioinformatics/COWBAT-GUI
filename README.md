@@ -1,1 +1,1 @@
-# COWBAT-GUI
+# ConFindr-GUI
