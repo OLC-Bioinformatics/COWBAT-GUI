@@ -184,6 +184,7 @@ class MainWindow(QMainWindow):
             mem = int(0.85 * float(psutil.virtual_memory().total) / 1024)
             subprocess.run(f'confindr -i {folderName} -o {self.test_out}{databases}{rmlst}{threads}{tmp}{keepFiles}{qualityCutoff}{baseCutoff}{baseFraction}{forwardId}{reverseId}{versionDisplay}{dataChoice}{cgmlst}{fasta}{verbosity}{crossDetails}{MMH} -Xmx {mem}K', shell=True)
             print(f'confindr -i {folderName} -o {self.test_out}{databases}{rmlst}{threads}{tmp}{keepFiles}{qualityCutoff}{baseCutoff}{baseFraction}{forwardId}{reverseId}{versionDisplay}{dataChoice}{cgmlst}{fasta}{verbosity}{crossDetails}{MMH} -Xmx {mem}K')
+            self.analyzeLabelError.setText("")
 
             # Prints a success message to say the results are successfully completed
             msg = QMessageBox()
