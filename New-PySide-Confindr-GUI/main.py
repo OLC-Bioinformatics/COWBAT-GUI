@@ -110,8 +110,8 @@ class MainWindow(QMainWindow):
         ## END - WINDOW ATTRIBUTES
         ############################## ---/--/--- ##############################
 
-
-
+        appIcon = QIcon("ConFindrIcon.png")
+        self.setWindowIcon(appIcon)
 
         ########################################################################
         #                                                                      #
