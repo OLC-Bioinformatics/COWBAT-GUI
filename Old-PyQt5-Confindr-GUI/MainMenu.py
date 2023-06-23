@@ -133,7 +133,7 @@ class UI(QMainWindow):
         sheet = workbook.active
 
         # Sets the number of rows and columns to the max rows and columns of the excel sheet entered
-        self.table_widget. setRowCount(sheet.max_row - 1)
+        self.table_widget.setRowCount(sheet.max_row - 1)
         self.table_widget.setColumnCount(sheet.max_column)
 
         # Sets the headers of the widget table to the headers in the excel sheet entered
