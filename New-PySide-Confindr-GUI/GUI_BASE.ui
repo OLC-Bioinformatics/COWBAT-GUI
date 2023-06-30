@@ -1572,7 +1572,7 @@ QPushButton:pressed {
                    <string notr="true">background: transparent;</string>
                   </property>
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>1</number>
                   </property>
                   <widget class="QWidget" name="page_home">
                    <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -1630,7 +1630,7 @@ QPushButton:pressed {
                    </layout>
                   </widget>
                   <widget class="QWidget" name="page_analysis">
-                   <layout class="QVBoxLayout" name="verticalLayout_16" stretch="3,1,1,4">
+                   <layout class="QVBoxLayout" name="verticalLayout_16" stretch="3,0,1,4">
                     <item>
                      <widget class="QFrame" name="frame_div_content_2">
                       <property name="minimumSize">
@@ -1707,7 +1707,7 @@ border-radius: 5px;
                       </layout>
                      </widget>
                     </item>
-                    <item alignment="Qt::AlignVCenter">
+                    <item>
                      <widget class="QFrame" name="frame_5">
                       <property name="frameShape">
                        <enum>QFrame::StyledPanel</enum>
@@ -2000,7 +2000,7 @@ border-radius: 5px;
                       <property name="frameShadow">
                        <enum>QFrame::Raised</enum>
                       </property>
-                      <layout class="QGridLayout" name="gridLayout_5" rowstretch="0,3">
+                      <layout class="QGridLayout" name="gridLayout_5" rowstretch="0,0">
                        <property name="topMargin">
                         <number>9</number>
                        </property>
@@ -2011,6 +2011,9 @@ border-radius: 5px;
                            <width>0</width>
                            <height>30</height>
                           </size>
+                         </property>
+                         <property name="statusTip">
+                          <string>Number of bases necessary to support a multiple allele call. Defaults to 2.</string>
                          </property>
                          <property name="styleSheet">
                           <string notr="true">QLineEdit {
@@ -2033,6 +2036,9 @@ QLineEdit:focus {
                        </item>
                        <item row="1" column="1">
                         <widget class="QCheckBox" name="FASTAcheckBox">
+                         <property name="statusTip">
+                          <string>If activated, will look for FASTA files instead of FASTQ for unpaired reads.</string>
+                         </property>
                          <property name="autoFillBackground">
                           <bool>false</bool>
                          </property>
@@ -2051,6 +2057,9 @@ QLineEdit:focus {
                            <family>Segoe UI</family>
                            <pointsize>9</pointsize>
                           </font>
+                         </property>
+                         <property name="statusTip">
+                          <string>Type of input data. Default is Illumina, but can be used for Nanopore too. No PacBio support (yet).</string>
                          </property>
                          <property name="autoFillBackground">
                           <bool>false</bool>
@@ -2094,6 +2103,22 @@ QComboBox QAbstractItemView {
                          </item>
                         </widget>
                        </item>
+                       <item row="1" column="0">
+                        <widget class="QCheckBox" name="RMLSTcheckBox">
+                         <property name="statusTip">
+                          <string>Activate to prefer using rMLST databases over core-gene derived databases. By default, ConFindr will use core-gene derived databases where available.</string>
+                         </property>
+                         <property name="autoFillBackground">
+                          <bool>false</bool>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true"/>
+                         </property>
+                         <property name="text">
+                          <string>RMLST</string>
+                         </property>
+                        </widget>
+                       </item>
                        <item row="0" column="0" colspan="4" alignment="Qt::AlignBottom">
                         <widget class="QLabel" name="labelBoxMainArguements">
                          <property name="font">
@@ -2109,19 +2134,6 @@ QComboBox QAbstractItemView {
                          </property>
                          <property name="text">
                           <string>MAIN ARGUEMENTS</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="1" column="0">
-                        <widget class="QCheckBox" name="RMLSTcheckBox">
-                         <property name="autoFillBackground">
-                          <bool>false</bool>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true"/>
-                         </property>
-                         <property name="text">
-                          <string>RMLST</string>
                          </property>
                         </widget>
                        </item>
@@ -2187,6 +2199,9 @@ border-radius: 5px;
                               <family>Segoe UI</family>
                               <pointsize>9</pointsize>
                              </font>
+                            </property>
+                            <property name="statusTip">
+                             <string>Amount of output you want printed to the screen. Defaults to info, which should be good for most users.</string>
                             </property>
                             <property name="autoFillBackground">
                              <bool>false</bool>
@@ -2266,6 +2281,9 @@ border-radius: 5px;
                          <layout class="QVBoxLayout" name="verticalLayout_12">
                           <item>
                            <widget class="QCheckBox" name="keepCheckBox">
+                            <property name="statusTip">
+                             <string>By default, intermediate files are deleted. Activate this flag to keep intermediate files.</string>
+                            </property>
                             <property name="autoFillBackground">
                              <bool>false</bool>
                             </property>
@@ -2279,6 +2297,9 @@ border-radius: 5px;
                           </item>
                           <item>
                            <widget class="QCheckBox" name="versionCheckBox">
+                            <property name="statusTip">
+                             <string>Show program's version number and exit</string>
+                            </property>
                             <property name="autoFillBackground">
                              <bool>false</bool>
                             </property>
@@ -2292,6 +2313,9 @@ border-radius: 5px;
                           </item>
                           <item>
                            <widget class="QCheckBox" name="crossDetailsCheckBox">
+                            <property name="statusTip">
+                             <string>Continue ConFindr analyses on samples with two or more genera identified. Default is False</string>
+                            </property>
                             <property name="autoFillBackground">
                              <bool>false</bool>
                             </property>
@@ -2340,6 +2364,9 @@ border-radius: 5px;
                               <height>30</height>
                              </size>
                             </property>
+                            <property name="statusTip">
+                             <string>Number of threads to run analysis with.</string>
+                            </property>
                             <property name="styleSheet">
                              <string notr="true">QLineEdit {
 	background-color: rgb(27, 29, 35);
@@ -2366,6 +2393,9 @@ QLineEdit:focus {
                               <width>0</width>
                               <height>30</height>
                              </size>
+                            </property>
+                            <property name="statusTip">
+                             <string>Identifier for reverse reads.</string>
                             </property>
                             <property name="styleSheet">
                              <string notr="true">QLineEdit {
@@ -2394,6 +2424,9 @@ QLineEdit:focus {
                               <height>30</height>
                              </size>
                             </property>
+                            <property name="statusTip">
+                             <string>Minimum number of matching hashes in a MASH screen in order for a genus to be considered present in a sample. Default is 150</string>
+                            </property>
                             <property name="styleSheet">
                              <string notr="true">QLineEdit {
 	background-color: rgb(27, 29, 35);
@@ -2420,6 +2453,9 @@ QLineEdit:focus {
                               <width>0</width>
                               <height>30</height>
                              </size>
+                            </property>
+                            <property name="statusTip">
+                             <string>Fraction of bases necessary to support a multiple allele call. Particularly useful when dealing with very high coverage samples. Default is 0.05.</string>
                             </property>
                             <property name="styleSheet">
                              <string notr="true">QLineEdit {
@@ -2448,6 +2484,9 @@ QLineEdit:focus {
                               <height>30</height>
                              </size>
                             </property>
+                            <property name="statusTip">
+                             <string>Identifier for forward reads.</string>
+                            </property>
                             <property name="styleSheet">
                              <string notr="true">QLineEdit {
 	background-color: rgb(27, 29, 35);
@@ -2474,6 +2513,9 @@ QLineEdit:focus {
                               <width>0</width>
                               <height>30</height>
                              </size>
+                            </property>
+                            <property name="statusTip">
+                             <string>If your ConFindr databases are in a location you don't have write access to, you can enter this option to specify a temporary directory to put genus-specific databases to.</string>
                             </property>
                             <property name="styleSheet">
                              <string notr="true">QLineEdit {
@@ -2502,6 +2544,9 @@ QLineEdit:focus {
                               <height>30</height>
                              </size>
                             </property>
+                            <property name="statusTip">
+                             <string>Base quality needed to support a multiple allele call. Defaults to 20.</string>
+                            </property>
                             <property name="styleSheet">
                              <string notr="true">QLineEdit {
 	background-color: rgb(27, 29, 35);
@@ -2529,6 +2574,9 @@ QLineEdit:focus {
                               <height>30</height>
                              </size>
                             </property>
+                            <property name="statusTip">
+                             <string>Databases folder. To download these, you will need to get access to the rMLST databases. For complete instructions on how to do this, please see https://olc-bioinformatics.github.io/ConFindr/install/#downloading-confindr-databases</string>
+                            </property>
                             <property name="styleSheet">
                              <string notr="true">QLineEdit {
 	background-color: rgb(27, 29, 35);
@@ -2555,6 +2603,9 @@ QLineEdit:focus {
                               <width>0</width>
                               <height>30</height>
                              </size>
+                            </property>
+                            <property name="statusTip">
+                             <string>Path to a cgMLST database to use for contamination detection instead of using the default rMLST database. Sequences in this file should have headers in format &gt;genename_allelenumber. To speed up ConFindr runs, clustering the cgMLST database with CD-HIT before running ConFindr is recommended. This is highly experimental, results should be interpreted with great care.</string>
                             </property>
                             <property name="styleSheet">
                              <string notr="true">QLineEdit {
