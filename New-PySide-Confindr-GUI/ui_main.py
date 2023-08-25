@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'GUI_BASEdCtgNC.ui'
+## Form generated from reading UI file 'GUI_BASEMhUWRd.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -845,7 +845,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_14.setStretch(0, 1)
 
-        self.verticalLayout_16.addWidget(self.frame_5, 0, Qt.AlignVCenter)
+        self.verticalLayout_16.addWidget(self.frame_5)
 
         self.frame_div_content_3 = QFrame(self.page_analysis)
         self.frame_div_content_3.setObjectName(u"frame_div_content_3")
@@ -911,13 +911,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addWidget(self.dataDropdownMenu, 1, 3, 1, 1)
 
-        self.labelBoxMainArguements = QLabel(self.frame_div_content_3)
-        self.labelBoxMainArguements.setObjectName(u"labelBoxMainArguements")
-        self.labelBoxMainArguements.setFont(font1)
-        self.labelBoxMainArguements.setStyleSheet(u"")
-
-        self.gridLayout_5.addWidget(self.labelBoxMainArguements, 0, 0, 1, 4, Qt.AlignBottom)
-
         self.RMLSTcheckBox = QCheckBox(self.frame_div_content_3)
         self.RMLSTcheckBox.setObjectName(u"RMLSTcheckBox")
         self.RMLSTcheckBox.setAutoFillBackground(False)
@@ -925,7 +918,13 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addWidget(self.RMLSTcheckBox, 1, 0, 1, 1)
 
-        self.gridLayout_5.setRowStretch(1, 3)
+        self.labelBoxMainArguements = QLabel(self.frame_div_content_3)
+        self.labelBoxMainArguements.setObjectName(u"labelBoxMainArguements")
+        self.labelBoxMainArguements.setFont(font1)
+        self.labelBoxMainArguements.setStyleSheet(u"")
+
+        self.gridLayout_5.addWidget(self.labelBoxMainArguements, 0, 0, 1, 4, Qt.AlignBottom)
+
 
         self.verticalLayout_16.addWidget(self.frame_div_content_3)
 
@@ -1205,7 +1204,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_16.addWidget(self.frame_div_content_4)
 
         self.verticalLayout_16.setStretch(0, 3)
-        self.verticalLayout_16.setStretch(1, 1)
         self.verticalLayout_16.setStretch(2, 1)
         self.verticalLayout_16.setStretch(3, 4)
         self.stackedWidget.addWidget(self.page_analysis)
@@ -1498,7 +1496,7 @@ class Ui_MainWindow(object):
         self.resultsTableWidget.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.resultsTableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.resultsTableWidget.setAlternatingRowColors(False)
-        self.resultsTableWidget.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.resultsTableWidget.setSelectionMode(QAbstractItemView.MultiSelection)
         self.resultsTableWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.resultsTableWidget.setShowGrid(True)
         self.resultsTableWidget.setGridStyle(Qt.SolidLine)
@@ -1506,11 +1504,11 @@ class Ui_MainWindow(object):
         self.resultsTableWidget.horizontalHeader().setVisible(False)
         self.resultsTableWidget.horizontalHeader().setCascadingSectionResizes(True)
         self.resultsTableWidget.horizontalHeader().setDefaultSectionSize(200)
-        self.resultsTableWidget.horizontalHeader().setStretchLastSection(True)
+        self.resultsTableWidget.horizontalHeader().setStretchLastSection(False)
         self.resultsTableWidget.verticalHeader().setVisible(False)
         self.resultsTableWidget.verticalHeader().setCascadingSectionResizes(False)
         self.resultsTableWidget.verticalHeader().setHighlightSections(False)
-        self.resultsTableWidget.verticalHeader().setStretchLastSection(True)
+        self.resultsTableWidget.verticalHeader().setStretchLastSection(False)
 
         self.horizontalLayout_13.addWidget(self.resultsTableWidget)
 
@@ -1743,7 +1741,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1775,28 +1773,79 @@ class Ui_MainWindow(object):
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Please select your folder of sequences you would like to analyze", None))
         self.sequenceBtn.setText(QCoreApplication.translate("MainWindow", u"Open Sequence Files", None))
         self.analyzeLabelError.setText("")
+#if QT_CONFIG(statustip)
+        self.baseCutoffInput.setStatusTip(QCoreApplication.translate("MainWindow", u"Number of bases necessary to support a multiple allele call. Defaults to 2.", None))
+#endif // QT_CONFIG(statustip)
         self.baseCutoffInput.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Base Cutoff", None))
+#if QT_CONFIG(statustip)
+        self.FASTAcheckBox.setStatusTip(QCoreApplication.translate("MainWindow", u"If activated, will look for FASTA files instead of FASTQ for unpaired reads.", None))
+#endif // QT_CONFIG(statustip)
         self.FASTAcheckBox.setText(QCoreApplication.translate("MainWindow", u"FASTA", None))
         self.dataDropdownMenu.setItemText(0, QCoreApplication.translate("MainWindow", u"Illumina", None))
         self.dataDropdownMenu.setItemText(1, QCoreApplication.translate("MainWindow", u"Nanopore", None))
 
-        self.labelBoxMainArguements.setText(QCoreApplication.translate("MainWindow", u"MAIN ARGUEMENTS", None))
+#if QT_CONFIG(statustip)
+        self.dataDropdownMenu.setStatusTip(QCoreApplication.translate("MainWindow", u"Type of input data. Default is Illumina, but can be used for Nanopore too. No PacBio support (yet).", None))
+#endif // QT_CONFIG(statustip)
+#if QT_CONFIG(statustip)
+        self.RMLSTcheckBox.setStatusTip(QCoreApplication.translate("MainWindow", u"Activate to prefer using rMLST databases over core-gene derived databases. By default, ConFindr will use core-gene derived databases where available.", None))
+#endif // QT_CONFIG(statustip)
         self.RMLSTcheckBox.setText(QCoreApplication.translate("MainWindow", u"RMLST", None))
+        self.labelBoxMainArguements.setText(QCoreApplication.translate("MainWindow", u"MAIN ARGUEMENTS", None))
         self.verbosityDropdownMenu.setItemText(0, QCoreApplication.translate("MainWindow", u"Info", None))
         self.verbosityDropdownMenu.setItemText(1, QCoreApplication.translate("MainWindow", u"Debug", None))
         self.verbosityDropdownMenu.setItemText(2, QCoreApplication.translate("MainWindow", u"Warning", None))
 
+#if QT_CONFIG(statustip)
+        self.verbosityDropdownMenu.setStatusTip(QCoreApplication.translate("MainWindow", u"Amount of output you want printed to the screen. Defaults to info, which should be good for most users.", None))
+#endif // QT_CONFIG(statustip)
+#if QT_CONFIG(statustip)
+        self.keepCheckBox.setStatusTip(QCoreApplication.translate("MainWindow", u"By default, intermediate files are deleted. Activate this flag to keep intermediate files.", None))
+#endif // QT_CONFIG(statustip)
         self.keepCheckBox.setText(QCoreApplication.translate("MainWindow", u"Keep Files", None))
+#if QT_CONFIG(statustip)
+        self.versionCheckBox.setStatusTip(QCoreApplication.translate("MainWindow", u"Show program's version number and exit", None))
+#endif // QT_CONFIG(statustip)
         self.versionCheckBox.setText(QCoreApplication.translate("MainWindow", u"Version Display", None))
+#if QT_CONFIG(statustip)
+        self.crossDetailsCheckBox.setStatusTip(QCoreApplication.translate("MainWindow", u"Continue ConFindr analyses on samples with two or more genera identified. Default is False", None))
+#endif // QT_CONFIG(statustip)
         self.crossDetailsCheckBox.setText(QCoreApplication.translate("MainWindow", u"Cross Details", None))
+#if QT_CONFIG(statustip)
+        self.threadsInput.setStatusTip(QCoreApplication.translate("MainWindow", u"Number of threads to run analysis with.", None))
+#endif // QT_CONFIG(statustip)
         self.threadsInput.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Threads", None))
+#if QT_CONFIG(statustip)
+        self.reverseInput.setStatusTip(QCoreApplication.translate("MainWindow", u"Identifier for reverse reads.", None))
+#endif // QT_CONFIG(statustip)
         self.reverseInput.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Reverse ID", None))
+#if QT_CONFIG(statustip)
+        self.MMHInput.setStatusTip(QCoreApplication.translate("MainWindow", u"Minimum number of matching hashes in a MASH screen in order for a genus to be considered present in a sample. Default is 150", None))
+#endif // QT_CONFIG(statustip)
         self.MMHInput.setPlaceholderText(QCoreApplication.translate("MainWindow", u"MMH", None))
+#if QT_CONFIG(statustip)
+        self.baseFractionInput.setStatusTip(QCoreApplication.translate("MainWindow", u"Fraction of bases necessary to support a multiple allele call. Particularly useful when dealing with very high coverage samples. Default is 0.05.", None))
+#endif // QT_CONFIG(statustip)
         self.baseFractionInput.setPlaceholderText(QCoreApplication.translate("MainWindow", u"BFC", None))
+#if QT_CONFIG(statustip)
+        self.forwardInput.setStatusTip(QCoreApplication.translate("MainWindow", u"Identifier for forward reads.", None))
+#endif // QT_CONFIG(statustip)
         self.forwardInput.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Forward ID", None))
+#if QT_CONFIG(statustip)
+        self.TMPInput.setStatusTip(QCoreApplication.translate("MainWindow", u"If your ConFindr databases are in a location you don't have write access to, you can enter this option to specify a temporary directory to put genus-specific databases to.", None))
+#endif // QT_CONFIG(statustip)
         self.TMPInput.setPlaceholderText(QCoreApplication.translate("MainWindow", u"TMP", None))
+#if QT_CONFIG(statustip)
+        self.qualityInput.setStatusTip(QCoreApplication.translate("MainWindow", u"Base quality needed to support a multiple allele call. Defaults to 20.", None))
+#endif // QT_CONFIG(statustip)
         self.qualityInput.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Quality Cutoff", None))
+#if QT_CONFIG(statustip)
+        self.databaseInput.setStatusTip(QCoreApplication.translate("MainWindow", u"Databases folder. To download these, you will need to get access to the rMLST databases. For complete instructions on how to do this, please see https://olc-bioinformatics.github.io/ConFindr/install/#downloading-confindr-databases", None))
+#endif // QT_CONFIG(statustip)
         self.databaseInput.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Databases", None))
+#if QT_CONFIG(statustip)
+        self.cgmlstInput.setStatusTip(QCoreApplication.translate("MainWindow", u"Path to a cgMLST database to use for contamination detection instead of using the default rMLST database. Sequences in this file should have headers in format >genename_allelenumber. To speed up ConFindr runs, clustering the cgMLST database with CD-HIT before running ConFindr is recommended. This is highly experimental, results should be interpreted with great care.", None))
+#endif // QT_CONFIG(statustip)
         self.cgmlstInput.setPlaceholderText(QCoreApplication.translate("MainWindow", u"CGMLST", None))
         self.labelBoxAdvancedArguements.setText(QCoreApplication.translate("MainWindow", u"ADVANCED ARGUEMENTS", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"TABLE RESULTS", None))
